@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Random Password Generator</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Generate a<br><span>Random Password !</span></h1>
+            <div class="display">
+                <input type="text" id="password" placeholder="Password">
+                <img src="assets/copy.png" onclick="copyPassword()">
+            </div>
+
+            <button onclick="createPassword()"><img src="assets/generate.png" >Generate Password</button>
+        </div>
+
+        <script>
+            const passwordGenerateBox = document.getElementById("password");
+            const length = 16;
+
+            const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+            const numbers = "0123456789";
+            const specialCase = "~`!@#$%^&*()_-+={[}]|\:;',.?/";
+
+            const allCases = upperCase + lowerCase + numbers + specialCase;
+
+            function createPassword(){
+                let password = "";
+                password += upperCase[Math.floor(Math.random() * upperCase.length)];
+                password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+                password += numbers[Math.floor(Math.random() * numbers.length)];
+                password += specialCase[Math.floor(Math.random() * specialCase.length)];
+            
+                while(password.length < length){
+                    password += allCases[Math.floor(Math.random() * allCases.length)];
+                }
+                passwordGenerateBox.value = password;
+            }
+
+            function copyPassword(){
+                passwordGenerateBox.select();
+                document.execCommand("copy");
+                alert("Password Copied!");
+            }
+        </script>
+    </body>
+</html>
